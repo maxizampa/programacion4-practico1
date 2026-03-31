@@ -33,6 +33,15 @@ public class PlatoService {
             );
         }
 
+          // valido el nombre usando un bucle para recorrer la lista 
+        List<Plato> todosLosPlatos = platoRepository.obtenerTodos();
+        for (Plato p : todosLosPlatos) {
+            // comparo los nombres sin tener en cuenta mayuscula o minuscula
+            if (p.getNombrePlato().equalsIgnoreCase(plato.getNombrePlato())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ya existe un plato con ese nombre");
+            }
+        }
+
         platoRepository.agregarPlato(plato);
     }
 
